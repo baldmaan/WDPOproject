@@ -11,12 +11,15 @@ URL = 'https://wdpo.dpieczynski.pl'
 
 
 def main():
-    student_id = 000000  # Tutaj należy wpisać swój numer indeksu
+    student_id = 147490  # Tutaj należy wpisać swój numer indeksu
 
     data = BytesIO()
     with ZipFile(data, 'w', ZIP_DEFLATED) as zip_file:
         base_path = Path.cwd()
         for file in base_path.rglob('*'):
+            if file.is_relative_to(base_path / 'data'):
+                continue
+
             zip_file.write(file, file.relative_to(base_path))
 
     data.seek(0)
