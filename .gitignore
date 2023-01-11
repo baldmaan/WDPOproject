@@ -185,6 +185,7 @@ coverage.xml
 .pytest_cache/
 cover/
 
+*.json
 # Translations
 *.mo
 *.pot

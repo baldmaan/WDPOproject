@@ -14,11 +14,11 @@ kernel = np.ones((7,7),np.uint8)
 lower_green = np.array([33, 80, 0])
 upper_green = np.array([61, 255, 255])
 
-lower_red1 = np.array([0, 97, 32])
-upper_red1 = np.array([8, 255, 255])
+lower_red1 = np.array([0, 70, 50])
+upper_red1 = np.array([10, 255, 255])
 
-lower_red2 = np.array([160, 72, 32])
-upper_red2 = np.array([179, 255, 255])
+lower_red2 = np.array([170, 70, 50])
+upper_red2 = np.array([180, 255, 255])
 
 lower_purple = np.array([110, 50, 0])
 upper_purple = np.array([168, 255, 235])
@@ -43,6 +43,7 @@ def find_contours(mask):
 
 def green(hsv):
     mask = create_mask(hsv, hsv_down=lower_green, hsv_up=upper_green)
+    mask = cv2.GaussianBlur(mask, (9, 9), 0)
     amount = find_contours(mask=mask)
     # print('green', amount)
     # maskShow = cv2.resize(mask, (width, height))
@@ -51,6 +52,7 @@ def green(hsv):
 
 def purple(hsv):
     mask = create_mask(hsv, hsv_down=lower_purple, hsv_up=upper_purple)
+    mask = cv2.GaussianBlur(mask, (9, 9), 0)
     amount = find_contours(mask=mask)
     # print('purple', amount)
     # maskShow = cv2.resize(mask, (width, height))
@@ -59,6 +61,7 @@ def purple(hsv):
 
 def yellow(hsv):
     mask = create_mask(hsv, hsv_down=lower_yellow, hsv_up=upper_yellow)
+    mask = cv2.GaussianBlur(mask, (9, 9), 0)
     amount = find_contours(mask=mask)
     # print('yellow', amount)
     # maskShow = cv2.resize(mask, (width, height))
@@ -67,6 +70,7 @@ def yellow(hsv):
 
 def red(hsv):
     mask1 = create_mask(hsv,hsv_down=lower_red1, hsv_up=upper_red1)
+    mask1 = cv2.GaussianBlur(mask1, (9, 9), 0)
     amount = find_contours(mask=mask1)
     # mask2 = create_mask(hsv,hsv_down=lower_red2, hsv_up=upper_red2)
     # amount += find_contours(mask=mask2)
@@ -89,6 +93,7 @@ def detect(img_path: str) -> Dict[str, int]:
     img = cv2.imread(img_path, cv2.IMREAD_COLOR)
     image = cv2.GaussianBlur(img, (9, 9), 0)
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
 
     #TODO: Implement detection method.
     amount_green = green(hsv)
