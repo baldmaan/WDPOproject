@@ -77,7 +77,7 @@ def detect(img_path: str) -> Dict[str, int]:
 
 
     img = cv2.imread(img_path, cv2.IMREAD_COLOR)
-    image = cv2.GaussianBlur(img, (9, 9), 0)
+    image = cv2.GaussianBlur(img, (11,11), 0)
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
 
